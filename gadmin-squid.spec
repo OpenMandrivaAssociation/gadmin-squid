@@ -4,7 +4,7 @@
 
 Summary:	A GTK+ administation tool for the Squid proxy
 Name:		gadmin-squid
-Version:	0.1.2
+Version:	0.1.3
 Release:	%mkrel 1
 License:	GPLv3+
 Group:		System/Configuration/Networking
@@ -32,7 +32,7 @@ Samba server.
 
 %install
 rm -rf %{buildroot}
-%makeinstall
+%makeinstall_std
 
 install -d %{buildroot}%{_sysconfdir}/%{name}
 
@@ -53,9 +53,9 @@ convert -geometry 32x32 pixmaps/%{name}.png %{buildroot}%{_iconsdir}/hicolor/32x
 convert -geometry 16x16 pixmaps/%{name}.png %{buildroot}%{_iconsdir}/hicolor/16x16/%{name}.png
 
 mkdir -p %{buildroot}%{_datadir}/applications
-sed -i -e 's,%{name}.png,%{name},g' desktop/net-%{name}.desktop
-sed -i -e 's,GADMIN-SQUID,Gadmin-Squid,g' desktop/net-%{name}.desktop
-mv desktop/net-%{name}.desktop %{buildroot}%{_datadir}/applications/net-%{name}.desktop
+sed -e 's,%{name}.png,%{name},g' \
+	-e 's,GADMIN-SQUID,Gadmin-Squid,g'\
+	desktop/%name.desktop > %{buildroot}%{_datadir}/applications/%{name}.desktop
 desktop-file-install --vendor="" \
     --remove-category="Application" \
     --add-category="Settings;Network;GTK;" \
