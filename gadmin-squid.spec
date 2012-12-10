@@ -5,7 +5,7 @@
 Summary:	A GTK+ administation tool for the Squid proxy
 Name:		gadmin-squid
 Version:	0.1.3
-Release:	%mkrel 2
+Release:	3
 License:	GPLv3+
 Group:		System/Configuration/Networking
 URL:		http://www.gadmintools.org/
@@ -17,7 +17,6 @@ BuildRequires:	desktop-file-utils
 Requires:	squid
 Requires:	openssl
 Requires:	usermode-consoleonly
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Gadmin-Samba is a fast and easy to use GTK+ administration tool for the
@@ -31,7 +30,6 @@ Samba server.
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
 install -d %{buildroot}%{_sysconfdir}/%{name}
@@ -42,9 +40,6 @@ install -d %{buildroot}%{_sysconfdir}/security/console.apps
 
 install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}
 install -m 644 etc/security/console.apps/%{name} %{buildroot}%{_sysconfdir}/security/console.apps/%{name}
-
-## locales
-%find_lang %{name}
 
 # Mandriva Icons
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48}/apps
@@ -76,20 +71,7 @@ _EOF_
 
 rm -rf %{buildroot}%{_datadir}/doc/%{name}
 
-%post
-%if %mdkversion < 200900
-%update_menus
-%endif
-
-%postun
-%if %mdkversion < 200900
-%clean_menus
-%endif
-
-%clean
-rm -rf %{buildroot}
-
-%files -f %{name}.lang
+%files
 %defattr(-,root,root,0755)
 %doc COPYING AUTHORS ChangeLog
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
@@ -101,4 +83,28 @@ rm -rf %{buildroot}
 %{_datadir}/pixmaps/%{name}/*.png
 %{_datadir}/applications/*
 %{_iconsdir}/hicolor/*/%{name}.png
+
+
+
+%changelog
+* Sun Dec 05 2010 Oden Eriksson <oeriksson@mandriva.com> 0.1.3-2mdv2011.0
++ Revision: 610789
+- rebuild
+
+* Wed Apr 07 2010 Funda Wang <fwang@mandriva.org> 0.1.3-1mdv2010.1
++ Revision: 532670
+- new version 0.1.3
+
+* Thu Jan 07 2010 Emmanuel Andry <eandry@mandriva.org> 0.1.2-1mdv2010.1
++ Revision: 487290
+- New version 0.1.2
+
+* Fri Sep 11 2009 Thierry Vignaud <tv@mandriva.org> 0.1.0-2mdv2010.0
++ Revision: 437645
+- rebuild
+
+* Sun Jan 04 2009 Adam Williamson <awilliamson@mandriva.org> 0.1.0-1mdv2009.1
++ Revision: 324176
+- import gadmin-squid
+
 
