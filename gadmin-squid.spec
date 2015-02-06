@@ -5,7 +5,7 @@
 Summary:	A GTK+ administation tool for the Squid proxy
 Name:		gadmin-squid
 Version:	0.1.3
-Release:	3
+Release:	4
 License:	GPLv3+
 Group:		System/Configuration/Networking
 URL:		http://www.gadmintools.org/
